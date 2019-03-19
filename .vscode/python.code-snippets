@@ -1,0 +1,14 @@
+{
+	"Init Python File": {
+		"scope": "python",
+		"prefix": "python",
+		"body": [
+			"# -*- coding:utf-8 _*-",
+			"",
+			"__author__ = 'ronething'",
+			"",
+			"$1",
+		],
+		"description": "init python file"
+	}
+}

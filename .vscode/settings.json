@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "/Users/ronething/.local/share/virtualenvs/python-async-7Ni86E7Y/bin/python",
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "yapf",
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+}
