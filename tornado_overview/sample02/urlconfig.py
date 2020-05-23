@@ -6,6 +6,7 @@
 Less is more.
 """
 
+import tornado
 from tornado import web, ioloop
 from tornado.web import URLSpec
 
@@ -17,8 +18,13 @@ class MainHandler(web.RequestHandler):
 
 
 class PeopleIdHandler(web.RequestHandler):
+    def initialize(self, name):  # init hook
+        self.db_name = name
+
     async def get(self, id, *args, **kwargs):
         self.write(f"用户 id {id}")
+        # self.write(self.reverse_url("people_name", "panda"))
+        # self.redirect(self.reverse_url("people_name", "panda"))
 
 
 class PeopleNameHandler(web.RequestHandler):
@@ -31,12 +37,16 @@ class PeopleInfoHandler(web.RequestHandler):
         self.write(f"用户 id {id}, 用户姓名 {name}, 用户性别 {gender}")
 
 
+people_db = {
+    "name": "people"
+}
+
 # 配置正则
 url = [
-    ("/", MainHandler),
-    (r"/people/(\d+)/?", PeopleIdHandler),
-    (r"/people/(\w+)/?", PeopleNameHandler),
-    (r"/people/(\w+)/(\d+)/(\w+)/?", PeopleInfoHandler),
+    URLSpec("/", MainHandler, name="index"),
+    URLSpec(r"/people/(\d+)/?", PeopleIdHandler, kwargs=people_db, name="people_id"),
+    URLSpec(r"/people/(\w+)/?", PeopleNameHandler, name="people_name"),
+    URLSpec(r"/people/(?P<name>\w+)/(?P<id>\d+)/(?P<gender>\w+)/?", PeopleInfoHandler, name="people_info"),
 ]
 
 if __name__ == '__main__':
