@@ -29,6 +29,7 @@ class MainHandler(RequestHandler):
         data4 = self.get_arguments("name")
         self.get_body_argument("name")
         self.get_body_arguments("name")
+        self.redirect("/", permanent=True) # 301 302
         pass
 
     def post(self, *args, **kwargs):
