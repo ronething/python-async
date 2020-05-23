@@ -31,6 +31,11 @@ class MainHandler(RequestHandler):
         self.get_body_arguments("name")
         pass
 
+    def post(self, *args, **kwargs):
+        self.write("hello")
+        # self.finish("panda") # 调用 finish 会完成 response
+        self.write("world")  # helloworld
+
 
 # 配置正则
 url = [
