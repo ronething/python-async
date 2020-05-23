@@ -7,6 +7,7 @@ Less is more.
 """
 
 from tornado import web, ioloop
+from tornado.web import URLSpec
 
 
 class MainHandler(web.RequestHandler):
@@ -25,11 +26,17 @@ class PeopleNameHandler(web.RequestHandler):
         self.write(f"用户姓名 {name}")
 
 
+class PeopleInfoHandler(web.RequestHandler):
+    async def get(self, name, id, gender, *args, **kwargs):
+        self.write(f"用户 id {id}, 用户姓名 {name}, 用户性别 {gender}")
+
+
 # 配置正则
 url = [
     ("/", MainHandler),
-    (r"/people/(\d+)", PeopleIdHandler),
-    (r"/people/(\w+)", PeopleNameHandler),
+    (r"/people/(\d+)/?", PeopleIdHandler),
+    (r"/people/(\w+)/?", PeopleNameHandler),
+    (r"/people/(\w+)/(\d+)/(\w+)/?", PeopleInfoHandler),
 ]
 
 if __name__ == '__main__':
